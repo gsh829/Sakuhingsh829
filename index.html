@@ -38,6 +38,305 @@
                     </ul>
                 </nav>
         </header>
+
+        <!-- 遮罩层 -->
+<div id="overlay"></div>
+
+<!-- Persona 3 性格测试弹窗 -->
+
+<div id="quiz-modal">
+    <div id="quiz-modal-bg"></div> 
+    <button class="close-btn" onclick="closeQuiz()">×</button>
+    <h2 id="testtitle"><span class="word" style="color: red;">ペルソナ</span>召喚！あなたに<span class="word" style="color: #00bfff;">宿る力</span>は？🌙</h2>
+    <div id="quiz">
+        <div class="question" data-score="1">
+            <p>新しいことを始める時、あなたは…？</p>
+            <button class="redbutton"onclick="answer(1)">とりあえずやってみる！</button>
+            <button class="bluebutton"onclick="answer(0)">しっかり準備してから動く</button>
+        </div>
+        
+        <div class="question" data-score="1">
+            <p>困難に直面！立ち向かう？慎重に回避？</p>
+            <button class="redbutton" onclick="answer(1)">リスク上等！突き進む！</button>
+            <button class="bluebutton" onclick="answer(0)">慎重に別の道を探す</button>
+        </div>
+        <div class="question" data-score="1">
+            <p>昼間の活動が好きですか、それとも夜行性ですか…？</p>
+            <button class="redbutton"onclick="answer(1)">昼間が好き</button>
+            <button class="bluebutton"onclick="answer(0)">夜が好き</button>
+        </div>
+        <div class="question" data-score="1">
+            <p>チームワークが得意ですか、それとも単独行動が好きですか…？</p>
+            <button class="redbutton"onclick="answer(1)">チームワークが得意</button>
+            <button class="bluebutton"onclick="answer(0)">単独行動が好き</button>
+        </div>
+    </div>
+    <div id="result" class="result"></div>
+</div>
+
+<!-- CSS: 弹窗样式 -->
+<style>
+    /* 背景遮罩 */
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    /* 弹窗 */
+    #testtitle{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%); 
+    font-size: 45px; 
+    color: #333; 
+    text-align: center;
+    white-space: nowrap; 
+    }
+    #quiz-modal {
+        position: fixed;
+        color: #333; 
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background: white;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out;
+        font-size: 38px;
+        align-content: center;       
+    }
+    #quiz{
+    font-family:  "KaiTi","Yu Mincho", "Papyrus",serif;
+    letter-spacing: 2px; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+    font-weight: bold;
+    font-size: 42px;
+    }
+
+    #quiz-modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, 
+        rgba(255, 0, 0, 0.7),  
+        rgba(255, 77, 77, 0.7), 
+        rgba(128, 0, 128, 0.7), 
+        rgba(0, 123, 255, 0.7), 
+        rgba(0, 68, 204, 0.7)   
+    );
+    background-size: 300% 300%;
+    animation: fadeRedBlue 6s infinite ease-in-out;
+    border-radius: 30px; /* 让背景和 #quiz-modal 保持一致 */
+    z-index: -1; /* 让背景不会遮住内容 */
+    opacity: 0.3; /* 让颜色柔和 */
+}
+
+/* 让渐变流动的动画 */
+@keyframes fadeRedBlue {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+    /* 关闭按钮 */
+    .close-btn {
+        position:absolute;
+        right: 20px;
+        top: 20px;
+        background: #ff0000;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        cursor: pointer;
+        float: right;
+        font-size: 20px;
+        border-radius: 10px;
+    }
+    
+
+    /* 问题样式 */
+    .question {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    /* 按钮样式 */
+    .redbutton {
+        background-color: #ff0000;
+        width: 80%;
+        margin:38px auto;
+        padding: 10px;
+        font-size: 32px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out,transform 0.3s ease-in-out;
+        border-radius: 15px;
+    }
+    .redbutton:hover {
+        background-color: #cc0000;
+        transform: scale(1.03); 
+    }
+
+    .bluebutton {
+        display: block;
+        width: 80%;
+        margin:30px auto;
+        padding: 10px;
+        font-size: 32px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out,transform 0.3s ease-in-out;
+        border-radius: 15px;
+    }
+
+    .bluebutton:hover {
+        background: #0056b3;
+        transform: scale(1.03); 
+    }
+
+    /* 结果显示 */
+    .result {
+    font-size: 45px;
+    margin-top: 60px;
+    font-family: "Cursive", "Papyrus", serif;
+    letter-spacing: 2px; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
+    opacity: 0; /* 透明 */
+    transition: opacity 0.5s ease-in-out; /* 0.5秒渐隐 */
+}
+
+
+
+</style>
+
+<!-- JS: 逻辑控制 -->
+<script>
+    let score = 0;
+    let answered = 0;
+    let currentQuestion = 0;
+    let questions = document.querySelectorAll(".question");
+
+    // 显示弹窗
+    function openQuiz() {
+        document.getElementById('quiz-modal').style.opacity = '1';
+        document.getElementById('quiz-modal').style.visibility = 'visible';
+        document.getElementById('overlay').style.opacity = '1';
+        document.getElementById('overlay').style.visibility = 'visible';
+        showNextQuestion();
+    }
+
+    // 关闭弹窗
+    function closeQuiz() {
+    let modal = document.getElementById('quiz-modal');
+    let overlay = document.getElementById('overlay');
+    modal.style.opacity = '0';
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        modal.remove();
+        overlay.remove();
+    }, 300);
+}
+
+
+    // 显示下一个问题
+    function showNextQuestion() {
+        if (currentQuestion < questions.length) {
+            let q = questions[currentQuestion];
+            q.style.display = "block";
+            setTimeout(() => {
+                q.style.opacity = "1";
+            }, 100);
+        }
+    }
+
+    // 处理答案选择
+    function answer(value) {
+        score += value;
+        answered++;
+        questions[currentQuestion].style.opacity = "0"; 
+        setTimeout(() => {
+            questions[currentQuestion].style.display = "none"; 
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showNextQuestion(); // 下一个问题
+            } else {
+                showResult(); 
+            }
+        }, 300);
+    }
+
+    // 最终结果
+    function showResult() {
+    let resultDiv = document.getElementById("result");
+    let resultText;
+
+    if (score >= 3) {
+          resultText =
+              "あなたのPersonaは <span style=\"font-size:1.3em; font-weight:bold;\">オーディン (Odin)</span> です！<br>" +
+              "古の神々の知恵を象徴し、強い意志と戦略的な思考力を兼ね備えたタイプです。" +
+              "新しいアイデアや困難な課題にも果敢に挑み、周囲から頼られるリーダーシップを発揮します。<br>" +
+              "ただし、理想や目的のために妥協を許さない一面もあるので、柔軟性を意識すると良いでしょう。";
+      } else if (score === 2) {
+          resultText =
+              "あなたのPersonaは <span style=\"font-size:1.3em; font-weight:bold;\">オルフェウス (Orpheus)</span> です！<br>" +
+              "古代ギリシャの詩人をイメージし、音楽と情熱を象徴するペルソナ。" +
+              "どんな苦境でも自分のメロディを信じて進み、静かな強さで周囲を支えるあなた。<br>" +
+              "その優しい響きが、仲間との絆を深め、未来への道を照らしてくれるでしょう。";
+      } else {
+          resultText =
+              "あなたのPersonaは <span style=\"font-size:1.3em; font-weight:bold;\">ジャックフロスト (Jack Frost)</span> です！<br>" +
+              "雪だるまのような愛らしい姿と、底抜けに明るい性格が特徴のペルソナ。" +
+              "好奇心が旺盛で、新しいことを吸収する力があり、周囲を巻き込んで一緒に楽しむことが得意です。<br>" +
+              "その無邪気さが周囲を和ませる一方、飽きっぽいところもあるので、集中力を養うと更に成長できます。";
+      }
+
+resultDiv.innerHTML = resultText;
+
+
+    // 1️⃣ 让文字淡入
+    resultDiv.style.visibility = "visible";
+    resultDiv.style.opacity = "1";
+
+    setTimeout(() => {
+        resultDiv.style.opacity = "1"; 
+    }, 50);
+}
+
+
+
+
+
+
+    // 页面加载时打开弹窗
+    window.onload = openQuiz;
+</script>
+
+
         <div class="mainvisual">  
             <img src="images/mainvisual3.jpg" alt="">
             <div class="red-line-top"></div>
