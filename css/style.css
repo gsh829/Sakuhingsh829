@@ -132,7 +132,7 @@ body {
   left: 0;
   top: -31px;
   width: 100%;
-  height: 104%;
+  height: 103%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
@@ -178,7 +178,7 @@ body {
   font-size: 40px;
   line-height: 1.6;
   color: white;
-  margin: -20px;
+  margin: auto;
   text-shadow: 2px 2px 4px #000000;
   font-size: 2vw;
 }
