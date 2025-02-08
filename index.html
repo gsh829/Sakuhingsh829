@@ -2,8 +2,8 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <meta name="keywords" content="prosona,ペルソナ３,persona3">
-        <meta name="description" content="game">
+        <meta name="keywords" content="映画,prosona,ペルソナ３,persona3 the movie">
+        <meta name="description" content="映画">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ペルソナ３ 宣伝サイト</title>
         <link rel="stylesheet" href="css/style.css">
@@ -47,10 +47,10 @@
 <div id="quiz-modal">
     <div id="quiz-modal-bg"></div> 
     <button class="close-btn" onclick="closeQuiz()">×</button>
-    <h2 id="testtitle"><span class="word" style="color: red;">ペルソナ</span>召喚！あなたに<span class="word" style="color: #00bfff;">宿る力</span>は？🌙</h2>
+    <h2 id="testtitle"><span class="word" style="color: red;">ペルソナ</span>召喚！あなたに<span class="word" style="color: #00bfff;">宿る力</span>は…？🔮</h2>
     <div id="quiz">
         <div class="question" data-score="1">
-            <p>新しいことを始める時、あなたは…？</p>
+            <p>新しいことを始める時、あなたは？</p>
             <button class="redbutton"onclick="answer(1)">とりあえずやってみる！</button>
             <button class="bluebutton"onclick="answer(0)">しっかり準備してから動く</button>
         </div>
@@ -61,12 +61,12 @@
             <button class="bluebutton" onclick="answer(0)">慎重に別の道を探す</button>
         </div>
         <div class="question" data-score="1">
-            <p>昼間の活動が好きですか、それとも夜行性ですか…？</p>
+            <p>昼間の活動が好きですか、それとも夜行性ですか？</p>
             <button class="redbutton"onclick="answer(1)">昼間が好き</button>
             <button class="bluebutton"onclick="answer(0)">夜が好き</button>
         </div>
         <div class="question" data-score="1">
-            <p>チームワークが得意ですか、それとも単独行動が好きですか…？</p>
+            <p>チームワークが得意ですか、それとも単独行動が好きですか？</p>
             <button class="redbutton"onclick="answer(1)">チームワークが得意</button>
             <button class="bluebutton"onclick="answer(0)">単独行動が好き</button>
         </div>
@@ -93,7 +93,7 @@
     /* 弹窗 */
     #testtitle{
     position: absolute;
-    top: 10px;
+    top: 0px;
     left: 50%;
     transform: translateX(-50%); 
     font-size: 45px; 
@@ -122,11 +122,13 @@
         align-content: center;       
     }
     #quiz{
-    font-family:  "KaiTi","Yu Mincho", "Papyrus",serif;
+    font-family:  "Garamond","Papyrus","KaiTi", serif;
     letter-spacing: 2px; 
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+    line-height: 1.6;
     font-weight: bold;
-    font-size: 42px;
+    font-size: 38px;
+    margin-top: 125px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); 
     }
 
     #quiz-modal::before {
@@ -146,8 +148,8 @@
     background-size: 300% 300%;
     animation: fadeRedBlue 6s infinite ease-in-out;
     border-radius: 30px; /* 让背景和 #quiz-modal 保持一致 */
-    z-index: -1; /* 让背景不会遮住内容 */
-    opacity: 0.3; /* 让颜色柔和 */
+    z-index: -1; 
+    opacity: 0.3; 
 }
 
 /* 让渐变流动的动画 */
@@ -221,7 +223,7 @@
 
     /* 结果显示 */
     .result {
-    font-size: 45px;
+    font-size: 36px;
     margin-top: 60px;
     font-family: "Cursive", "Papyrus", serif;
     letter-spacing: 2px; 
@@ -349,7 +351,7 @@ resultDiv.innerHTML = resultText;
                     街は異様な静けさにつつまれ
                     人々は不気味なオブジェへと姿を変える。
                     多くの人にはないものとされる影時間には
-                    異形の怪物<span class="word" style="color: #FFFF00;">「シャドウ」</span>がはびこっていた。<br><br>
+                    異形の怪物<span class="word" style="color: #FFFF00;">「シャドウ」</span>がはびこっていた。<br>
                     ある満月の夜、深夜0時を過ぎたころ
                     「シャドウ」に急襲された主人公たち。
                     遂に追い詰められたそのとき、
