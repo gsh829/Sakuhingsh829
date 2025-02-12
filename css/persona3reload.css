@@ -94,6 +94,18 @@ body {
 .header_nav ul li a:hover::after {
   width: 100%;
 }
+.header_nav ul li a:hover::after {
+  width: 100%;
+}
+.header_nav ul li a span {
+  display: inline-block;
+  font-size: 26px;
+  transition: font-size 0.3s ease;
+}
+
+.header_nav ul li a:hover span {
+  font-size: 28px;
+}
 /*------------------------------
     HOME(index.html)
 ------------------------------*/
