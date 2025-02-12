@@ -39,10 +39,10 @@
                 </nav>
         </header>
 
-        <!-- 遮罩层 -->
+        
 <div id="overlay"></div>
 
-<!-- Persona 3 性格测试弹窗 -->
+<!-- Persona 3 弹窗 -->
 
 <div id="quiz-modal">
     <div id="quiz-modal-bg"></div> 
@@ -147,19 +147,18 @@
     );
     background-size: 300% 300%;
     animation: fadeRedBlue 6s infinite ease-in-out;
-    border-radius: 30px; /* 让背景和 #quiz-modal 保持一致 */
+    border-radius: 30px; 
     z-index: -1; 
     opacity: 0.3; 
 }
 
-/* 让渐变流动的动画 */
+/* 动画 */
 @keyframes fadeRedBlue {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-    /* 关闭按钮 */
     .close-btn {
         position:absolute;
         right: 20px;
@@ -243,7 +242,7 @@
     let currentQuestion = 0;
     let questions = document.querySelectorAll(".question");
 
-    // 显示弹窗
+    // 显示
     function openQuiz() {
         document.getElementById('quiz-modal').style.opacity = '1';
         document.getElementById('quiz-modal').style.visibility = 'visible';
@@ -252,7 +251,7 @@
         showNextQuestion();
     }
 
-    // 关闭弹窗
+    // 关闭
     function closeQuiz() {
     let modal = document.getElementById('quiz-modal');
     let overlay = document.getElementById('overlay');
@@ -265,7 +264,7 @@
 }
 
 
-    // 显示下一个问题
+    // 下一个问题
     function showNextQuestion() {
         if (currentQuestion < questions.length) {
             let q = questions[currentQuestion];
@@ -320,7 +319,7 @@
 resultDiv.innerHTML = resultText;
 
 
-    // 1️⃣ 让文字淡入
+    // 文字淡入
     resultDiv.style.visibility = "visible";
     resultDiv.style.opacity = "1";
 
