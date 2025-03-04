@@ -2,13 +2,73 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta name="keywords" content="映画,prosona,ペルソナ３,persona3 the movie">
         <meta name="description" content="映画">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ペルソナ３ 宣伝サイト</title>
+        <title>ペルソナ３</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const particleContainer = document.querySelector('.particle-container');
+        
+            if (!particleContainer) {
+                console.error("❌ .particle-container 未找到！");
+                return;
+            }
+        
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+        
+                // 粒子大小
+                const size = Math.random() * 3.2 + 3.2; 
+                // 随机 Y 轴坐标（0~100）
+                const startY = Math.random() * 100; 
+                // 轻微 Y 轴浮动
+                const yMovement = Math.random() * 20 - 10 + 'px';
+                
+        
+                // 判断从左侧还是右侧生成
+                // leftSide = true/false
+                const leftSide = Math.random() > 0.5;
+                if (leftSide) {
+                    // 从左侧出现
+                    particle.style.left = '0%';
+                    // 让粒子往右飘更远一点
+                    particle.style.setProperty('--x-move', '250px');
+                    // 粒子颜色（例：白色）
+                    particle.style.backgroundColor = '#00bfff';
+                } else {
+                    // 从右侧出现
+                    particle.style.left = '100%';
+                    // 让粒子往左飘更远一点
+                    particle.style.setProperty('--x-move', '-250px');
+                    // 粒子颜色（例：红色）
+                    particle.style.backgroundColor = '#4dfe04';
+                }
+        
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.top = `${startY}%`;
+                particle.style.setProperty('--y-move', yMovement);
+        
+                // 添加到页面
+                particleContainer.appendChild(particle);
+        
+                // 3秒后删除
+                setTimeout(() => {
+                    particle.remove();
+                }, 3000);
+            }
+        
+            setInterval(createParticle, 30);
+        });
+        </script>
+        
+    
+
     <body>
         
         <header class="header">
@@ -30,7 +90,6 @@
 
                 </div>
                 <nav class="header_nav"><!--flexアイテム：右（navi）-->
-                    
                     <ul>             
                         <li><a href="index.html"><span>HOME</span></a></li>
                         <li><a href="story.html"><span>INTRODUCE</span></a></li>
@@ -40,10 +99,10 @@
                 </nav>
         </header>
 
-        
+        <!-- 遮罩层 -->
 <div id="overlay"></div>
 
-<!-- Persona 3 弹窗 -->
+<!-- Persona 3 性格测试弹窗 -->
 
 <div id="quiz-modal">
     <div id="quiz-modal-bg"></div> 
@@ -142,9 +201,9 @@
     background: linear-gradient(-45deg, 
         rgba(255, 0, 0, 0.7),  
         rgba(255, 77, 77, 0.7), 
-        rgba(128, 0, 128, 0.7), 
+        rgba(128, 0, 128, 0.7),
         rgba(0, 123, 255, 0.7), 
-        rgba(0, 68, 204, 0.7)   
+        rgba(0, 68, 204, 0.7)
     );
     background-size: 300% 300%;
     animation: fadeRedBlue 6s infinite ease-in-out;
@@ -243,7 +302,7 @@
     let currentQuestion = 0;
     let questions = document.querySelectorAll(".question");
 
-    // 显示
+    // 显示弹窗
     function openQuiz() {
         document.getElementById('quiz-modal').style.opacity = '1';
         document.getElementById('quiz-modal').style.visibility = 'visible';
@@ -252,7 +311,7 @@
         showNextQuestion();
     }
 
-    // 关闭
+    // 关闭弹窗
     function closeQuiz() {
     let modal = document.getElementById('quiz-modal');
     let overlay = document.getElementById('overlay');
@@ -265,7 +324,7 @@
 }
 
 
-    // 下一个问题
+    // 显示下一个问题
     function showNextQuestion() {
         if (currentQuestion < questions.length) {
             let q = questions[currentQuestion];
@@ -320,7 +379,7 @@
 resultDiv.innerHTML = resultText;
 
 
-    // 文字淡入
+    // 1️⃣ 让文字淡入
     resultDiv.style.visibility = "visible";
     resultDiv.style.opacity = "1";
 
@@ -328,11 +387,6 @@ resultDiv.innerHTML = resultText;
         resultDiv.style.opacity = "1"; 
     }, 50);
 }
-
-
-
-
-
 
     // 页面加载时打开弹窗
     window.onload = openQuiz;
@@ -342,6 +396,7 @@ resultDiv.innerHTML = resultText;
         <div class="mainvisual">  
             <img src="images/mainvisual3.jpg" alt="">
             <div class="red-line-top"></div>
+            <div class="particle-container"></div>
             </div>
          <main class="main_contents">
             <div class="intro_text">
@@ -368,8 +423,8 @@ resultDiv.innerHTML = resultText;
 
         <div class="introimg">
             <div class="image-flow">
-                <img class="kage" src="images/intro.jpeg" alt="">
                 <img class="kage" src="images/intro4.jpg" alt="">
+                <img class="kage" src="images/intro.jpeg" alt="">
                 <img class="kage" src="images/intro2.jpg" alt="">
                 <img class="kage" src="images/intro7.jpg" alt="">
                 <img class="kage" src="images/intro3.jpg" alt="">
@@ -393,8 +448,8 @@ resultDiv.innerHTML = resultText;
                特別課外活動部のリーダーとして抜擢され
                同じペルソナ能力を持つ仲間たちとともに
                影時間の<span class="word" style="color: #4dfe04;">「謎」</span>に迫ってゆく。
-            </p>-->
-           </div>
+            </p>
+           </div>-->
 
             <footer class="footer">
                 <nav class="footer_nav">
@@ -407,7 +462,7 @@ resultDiv.innerHTML = resultText;
                 </nav>
                 
                 <div class="footer_copyright">
-                    <small>copyright@PERSONA3</small>
+                    <small>copyright@2024 PERSONA3 THE MOVIE</small>
                 </div> 
 
       
